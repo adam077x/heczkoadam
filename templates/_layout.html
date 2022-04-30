@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heczko Adam</title>
+
+    {% include "libraries.html" %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    {% block head %} {% endblock %}
+</head>
+<body>
+    <div id="container">
+        <h1>Adam Heczko</h1>
+
+        <ul class="nav-bar">
+            <a href="/projects"><li><i class="bi bi-archive"></i> Projects</li></a>
+            <a href="/about"><li><i class="bi bi-archive"></i> About Me</li></a>
+            <a href="/contact"><li><i class="bi bi-archive"></i> Contact</li></a>
+            <a href="/blog"><li><i class="bi bi-archive"></i> Blog</li></a>
+        </ul>
+
+        {% block body %} {% endblock %}
+    </div>
+</body>
+</html>
