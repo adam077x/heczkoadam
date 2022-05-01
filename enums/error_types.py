@@ -1,5 +1,5 @@
-from enum import IntValue
+from enum import Enum
 
-class ErrorType(IntValue):
+class ErrorType(Enum):
     INVALID_PASSWORD = 1
     USER_NOT_FOUND = 2

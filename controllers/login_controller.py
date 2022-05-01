@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for
 from models.user_model import User
-#from enums.error_types import ErrorType
+from enums.error_types import ErrorType
 
 login_bp = Blueprint("login", __name__, template_folder="templates")
 
@@ -15,6 +15,7 @@ def login():
         if user != None:
             if user.password == password:
                 session["username"] = username
+                session["permissions"] = user.permissions
                 return redirect("/")
             else:
                 return render_template("login.html", error=ErrorType.INVALID_PASSWORD)
@@ -22,3 +23,9 @@ def login():
             return render_template("login.html", error=ErrorType.USER_NOT_FOUND)
 
     return render_template("login.html")
+
+@login_bp.route("/logout")
+def logout():
+    session.clear()
+
+    return redirect("/")

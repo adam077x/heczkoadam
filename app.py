@@ -2,21 +2,21 @@ from flask import Flask, render_template, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flaskext.markdown import Markdown
-#from enums.error_types import ErrorType
+from enums.error_types import ErrorType
 from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = "root"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mariadb+pymysql://root:root@localhost/portfolio?charset=utf8mb4"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.permanent_session_lifetime = timedelta(minutes=5)
 
-#app.add_template_global(ErrorType, "ErrorType")
+app.add_template_global(ErrorType, "ErrorType")
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 md = Markdown(app)
 
 from models.blog_model import Blog
