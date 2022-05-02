@@ -1,17 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heczko Adam</title>
+{% extends "layouts/_layout.html" %}
 
-    {% include "partials/libraries.html" %}
-</head>
-<body>
-    {% for project in projects %}
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+
+{% for project in projects %}
+    <a class="project-btn" href="/project/{{project['id']}}">
         <h2>{{project['title']}}</h2>
         <p>{{project['description']}}</p>
-    {% endfor %}
-</body>
-</html>
+    </a>
+    <hr>
+{% endfor %}
+
+{% if "username" in session %}
+<a href="/create_project">Create Project</a>
+{% endif %}
+
+{% endblock %}

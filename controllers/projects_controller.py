@@ -3,19 +3,31 @@ from models.project_model import Project
 from app import db
 from decorators.auth_decors import isLoggedIn
 from sqlalchemy import and_
+import markdown
 
 projects_bp = Blueprint("projects", __name__, template_folder="templates")
 
 @projects_bp.route("/projects")
 def projects():
-    projects = Project.query.filter(published==1).all()
+    projects = None
+
+    if "username" in session:
+        projects = Project.query.all()
+    else:
+        projects = Project.query.filter(Project.published==1).all()
+
     return render_template("projects.html", projects=projects)
 
 @projects_bp.route("/project/<int:id>")
 def project(id):
-    project = Project.query.filter(id==id).first()
+    project = Project.query.filter(Project.id==id).first()
 
-    return render_template("project.html", project=project)
+    if "username" not in session and project.published != 1:
+        return "Not enough permissions."
+
+    html_content = markdown.markdown(project.content)
+
+    return render_template("project.html", project=project, html_content=html_content)
 
 @projects_bp.route("/edit_project/<int:id>")
 @isLoggedIn
@@ -59,7 +71,6 @@ def create_project():
         description = request.form.get("description")
 
         project = Project(title=title, description=description, content=f"#{title}")
-        print(project.title)
 
         db.session.add(project)
         db.session.commit()

@@ -19,12 +19,13 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db, compare_type=True)
 md = Markdown(app)
 
-from models.blog_model import Blog
+from models.pinned_model import PinnedProject, PinnedPost
+from models.post_model import Post
 from models.project_model import Project
 from models.user_model import User
 
 from controllers.home_controller import home_bp
-from controllers.about_controller import about_bp
+from controllers.contact_controller import contact_bp
 from controllers.projects_controller import projects_bp
 from controllers.login_controller import login_bp
 from controllers.admin_controller import admin_bp
@@ -33,7 +34,7 @@ db.init_app(app)
 migrate.init_app(app, db)
 
 app.register_blueprint(home_bp)
-app.register_blueprint(about_bp)
+app.register_blueprint(contact_bp)
 app.register_blueprint(projects_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(admin_bp)

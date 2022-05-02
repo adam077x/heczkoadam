@@ -6,4 +6,32 @@
 
 {% block body %}
 
+<h2>Hi, Welcome to my portfolio!</h2>
+
+<p>
+    Hello, and welcome to my portfolio. My name is Adam Heczko and i am from Czech Republic. I am interested in computer programming. Currently I am studying IT. Here you can find my projects and posts.
+</p>
+
+<p>You can contact me on <a href="mailto:adam.heczko@gmail.com">adam.heczko@gmail.com</a></p>
+<p>You can visit my github at <a href="https://github.com/adam077x">github.com/adam077x</a></p>
+
+<hr>
+
+<h3>Pinned Projects</h3>
+
+<div class="pinned">
+    {% for pinned_project in pinned_projects%}
+        <div class="pinned-obj">
+            <a href="/project/{{pinned_project[1].id}}">
+                <div class="pinned-title">{{ pinned_project[1].title }}</div>
+                <div class="pinned-desc">{{ pinned_project[1].description }}</div>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
+<hr>
+
+<h3>Pinned Posts</h3>
+
 {% endblock %}

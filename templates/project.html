@@ -1,12 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {{ project['content']|markdown }}
-</body>
-</html>
+{% extends "layouts/_layout.html" %}
+
+{% block head %}
+
+<link rel="stylesheet" href="">
+<script src="{{ url_for('static', filename='libs/markdown-it.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/markdown-loader.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+
+{{ html_content|safe }}
+
+{% if "username" in session %}
+<a href="/edit_project/{{project['id']}}">Edit Project</a>
+{% endif %}
+
+{% endblock %}
